@@ -7,11 +7,351 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Copy all CSS and JS from your original index.html here -->
-    <!-- ...existing code... -->
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0e7ff 0%, #f4f6fb 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            background: #2d8cf0;
+            color: #fff;
+            padding: 24px 0 16px 0;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(45,140,240,0.08);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        .container {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        #video {
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            margin-top: 12px;
+            width: 100%;
+            max-width: 480px;
+            background: #222;
+        }
+        #startBtn {
+            margin-top: 18px;
+            padding: 12px 32px;
+            background: #2d8cf0;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(45,140,240,0.12);
+            transition: background 0.2s;
+        }
+        #startBtn:disabled {
+            background: #b0c4de;
+            cursor: not-allowed;
+        }
+        #objects {
+            margin-top: 28px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 20px;
+            width: 100%;
+            max-width: 420px;
+        }
+        #objects h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: #2d3e50;
+        }
+        #objectList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .object-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .object-item:last-child {
+            border-bottom: none;
+        }
+        .object-icon {
+            width: 32px;
+            height: 32px;
+            background: #e0e7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 14px;
+        }
+        .object-label {
+            font-weight: 600;
+            color: #2d3e50;
+            margin-right: 10px;
+        }
+        .confidence-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e7ff;
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+        }
+        .confidence-fill {
+            height: 100%;
+            background: #2d8cf0;
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .confidence-text {
+            font-size: 0.95rem;
+            color: #2d8cf0;
+            font-weight: 500;
+        }
+        #spinner {
+            display: none;
+            margin-top: 24px;
+        }
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 51px;
+            height: 51px;
+            margin: 6px;
+            border: 6px solid #2d8cf0;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #2d8cf0 transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @media (max-width: 600px) {
+            .container, #objects {
+                max-width: 98vw;
+                padding: 10px;
+            }
+            #video {
+                max-width: 98vw;
+            }
+        }
+        footer {
+            width: 100%;
+            background: #2d3e50;
+            color: #fff;
+            text-align: center;
+            padding: 18px 0 12px 0;
+            font-size: 1rem;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 10;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 600px) {
+            .container, #objects {
+                max-width: 98vw;
+                padding: 10px;
+            }
+            #video {
+                max-width: 98vw;
+                height: auto;
+            }
+            header h1 {
+                font-size: 1.3rem;
+            }
+            #startBtn {
+                font-size: 1rem;
+                padding: 10px 18px;
+            }
+            #objects h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Copy all HTML from your original index.html here -->
-    <!-- ...existing code... -->
+    <header>
+        <h1>Object Detection Web App</h1>
+        <p style="margin: 8px 0 0 0; font-size: 1.1rem; font-weight: 400; color: #e0e7ff;">Detect objects in real time using your laptop camera</p>
+    </header>
+    <div class="container">
+        <video id="video" width="480" height="360" autoplay muted></video>
+        <button id="startBtn">Start Detection</button>
+        <div id="spinner">
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <div style="text-align:center; color:#2d8cf0; font-weight:500; margin-top:8px;">Detecting objects...</div>
+        </div>
+        <div id="objects">
+            <h2>Detected Objects</h2>
+            <ul id="objectList"></ul>
+        </div>
+    </div>
+    <footer>
+        Made by Soumitra 2025
+    </footer>
+    <script>
+        const video = document.getElementById('video');
+        const startBtn = document.getElementById('startBtn');
+        const objectList = document.getElementById('objectList');
+        const spinner = document.getElementById('spinner');
+        let streaming = false;
+        let intervalId;
+
+        // Simple icon mapping for common objects
+        const iconMap = {
+            person: '👤',
+            car: '🚗',
+            bicycle: '🚲',
+            dog: '🐶',
+            cat: '🐱',
+            cell_phone: '📱',
+            laptop: '💻',
+            book: '📖',
+            cup: '☕',
+            chair: '🪑',
+            clock: '⏰',
+            bed: '🛏️',
+            couch: '🛋️',
+            sports_ball: '🏀',
+            tie: '👔',
+            umbrella: '☂️',
+            refrigerator: '🧊',
+            bird: '🐦',
+            toothbrush: '🪥',
+            frisbee: '🥏',
+            tennis_racket: '🎾',
+            // Add more as needed
+        };
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                alert('Could not access camera. Please allow camera access and refresh.');
+            }
+        }
+
+        async function sendFrame() {
+            if (!streaming) return;
+            spinner.style.display = 'block';
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append('frame', blob, 'frame.jpg');
+                try {
+                    const res = await fetch('/detect', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (!res.ok) throw new Error('Detection failed');
+                    const objects = await res.json();
+                    objectList.innerHTML = '';
+                    if (objects.length === 0) {
+                        objectList.innerHTML = '<li style="color:#888;text-align:center;">No objects detected</li>';
+                    } else {
+                        objects.forEach(obj => {
+                            const li = document.createElement('li');
+                            li.className = 'object-item';
+                            // Icon
+                            const icon = document.createElement('span');
+                            icon.className = 'object-icon';
+                            icon.textContent = iconMap[obj.label] || '🔎';
+                            li.appendChild(icon);
+                            // Label
+                            const label = document.createElement('span');
+                            label.className = 'object-label';
+                            label.textContent = obj.label;
+                            li.appendChild(label);
+                            // Confidence bar
+                            const bar = document.createElement('span');
+                            bar.className = 'confidence-bar';
+                            const fill = document.createElement('span');
+                            fill.className = 'confidence-fill';
+                            fill.style.width = `${(obj.confidence*100).toFixed(0)}%`;
+                            bar.appendChild(fill);
+                            li.appendChild(bar);
+                            // Confidence text
+                            const confText = document.createElement('span');
+                            confText.className = 'confidence-text';
+                            confText.textContent = `${(obj.confidence*100).toFixed(1)}%`;
+                            li.appendChild(confText);
+                            objectList.appendChild(li);
+                        });
+                    }
+                } catch (err) {
+                    objectList.innerHTML = '<li style="color:#e74c3c;text-align:center;">Detection error</li>';
+                } finally {
+                    spinner.style.display = 'none';
+                }
+            }, 'image/jpeg');
+        }
+
+        startBtn.onclick = () => {
+            if (!streaming) {
+                streaming = true;
+                startBtn.textContent = 'Stop Detection';
+                startBtn.style.background = '#e74c3c';
+                spinner.style.display = 'block';
+                intervalId = setInterval(sendFrame, 1000);
+            } else {
+                streaming = false;
+                startBtn.textContent = 'Start Detection';
+                startBtn.style.background = '#2d8cf0';
+                clearInterval(intervalId);
+                objectList.innerHTML = '';
+                spinner.style.display = 'none';
+            }
+        };
+
+        startCamera();
+    </script>
 </body>
 </html>
