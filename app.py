@@ -9,7 +9,8 @@ from ultralytics import YOLO
 
 app = Flask(__name__, template_folder='templates')
 
-# Load YOLOv8-X model (pre-trained on COCO dataset)
+# Load YOLOv8-X model (pre-traine
+# d on COCO dataset)
 model = YOLO('yolov8x.pt')
 
 @app.route('/')

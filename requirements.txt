@@ -3,3 +3,4 @@ opencv-python
 ultralytics
 torch
 numpy<2
+gunicorn
