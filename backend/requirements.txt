@@ -1,0 +1,7 @@
+flask
+opencv-python
+ultralytics
+torch
+numpy<2
+
+# (No changes needed, just confirming backend/requirements.txt is correct)
