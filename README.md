@@ -21,7 +21,7 @@ A polished, modern web application for real-time object detection using your lap
 3. Open your browser at [http://localhost:5000](http://localhost:5000)
 
 ## Deployment
-- **Frontend:** [Netlify link here]
+- **Frontend:** https://soumitra-detect.netlify.app/
 - **Backend:** [Backend link here]
 
 ## Credits
