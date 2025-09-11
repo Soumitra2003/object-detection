@@ -22,7 +22,7 @@ A polished, modern web application for real-time object detection using your lap
 
 ## Deployment
 - **Frontend:** https://soumitra-detect.netlify.app/
-- **Backend:** [Backend link here]
+
 
 ## Credits
 Made by Soumitra, 2025.
