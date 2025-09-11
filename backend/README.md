@@ -27,4 +27,4 @@ A polished, modern web application for real-time object detection using your lap
 ## Credits
 Made by Soumitra, 2025.
 
-# (No changes needed, just confirming backend/README.md is correct)
+
