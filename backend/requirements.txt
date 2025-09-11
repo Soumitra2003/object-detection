@@ -3,5 +3,5 @@ opencv-python
 ultralytics
 torch
 numpy<2
+gunicorn
 
-# (No changes needed, just confirming backend/requirements.txt is correct)
